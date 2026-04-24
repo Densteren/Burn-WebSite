@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+  rights   String @default("STALL_OWNER")
+  balance  Int    @default(0)
+  isSO     Boolean @default(true)
+
+  barrels Barrels[]
+}
+
+model Barrels {
+  id        String   @id @default(uuid())
+  number    String
+  xyz       String
+  updatedAt DateTime @updatedAt
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  itemId String?
+  item   Item?   @relation(fields: [itemId], references: [id])
+}
+
+model Item {
+  id        String   @id @default(uuid())
+  name      String
+  amount    Int      @default(0)
+  type      String   @default("basic") // basic | custom | map
+  image     String? // для мап артов
+  likes     Int      @default(0)
+  dislikes  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  barrels Barrels[]
+
+  isTemplate Boolean @default(false)
+  creatorId  String?
+}

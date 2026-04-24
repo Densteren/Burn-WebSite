@@ -1,0 +1,5 @@
+npm install express cors jsonwebtoken bcrypt prisma @prisma/client
+
+npx create-react-app frontend
+npm install
+npm install -D tailwindcss
