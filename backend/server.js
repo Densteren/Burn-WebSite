@@ -1,11 +1,17 @@
+require("dotenv/config");
+
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { PrismaBetterSqlite3 } = require("@prisma/adapter-better-sqlite3");
 const { PrismaClient } = require("@prisma/client");
-const { use } = require("react");
 
-const prisma = new PrismaClient();
+const adapter = new PrismaBetterSqlite3({
+    url: process.env.DATABASE_URL || "file:./prisma/dev.db"
+});
+
+const prisma = new PrismaClient({ adapter });
 
 const app = express();
 app.use(cors());

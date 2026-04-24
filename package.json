@@ -1,13 +1,14 @@
 {
-  "dependencies": {
-    "@prisma/client": "^7.6.0",
-    "bcrypt": "^6.0.0",
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "prisma": "^7.6.0"
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend start\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend start",
+    "start": "concurrently \"npm --prefix backend start\" \"npm --prefix frontend start\"",
+    "start:backend": "npm --prefix backend start",
+    "start:frontend": "npm --prefix frontend start"
   },
   "devDependencies": {
-    "tailwindcss": "^4.2.2"
+    "concurrently": "^9.2.1"
   }
 }
